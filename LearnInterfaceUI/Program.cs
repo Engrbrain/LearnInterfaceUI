@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using DemoLibrary;
 
+
 Console.WriteLine("Hello, World!");
-List<PhysicalProductModel> cart = AddSampleProduct();
+List<IProductModel> cart = AddSampleProduct(); 
 CustomerModel customer = GetCustomer();
 
-foreach (PhysicalProductModel product in cart) {
+foreach (IProductModel product in cart) {
     product.ShipItem(customer);
+
+    if (product is IDigitalProductModel digital)
+    {
+        Console.WriteLine($"For the {digital.Title} you have {digital.TotalDownloadsLeft} downloads left");
+    }
 }
 
 static CustomerModel GetCustomer()
@@ -22,12 +28,21 @@ static CustomerModel GetCustomer()
     };
 }
 
-static List<PhysicalProductModel> AddSampleProduct()
+static List<IProductModel> AddSampleProduct()
 {
-    List <PhysicalProductModel> newProducts = new List<PhysicalProductModel>();
+    List <IProductModel> newProducts = new List<IProductModel>();
+
+    //Add Physical Products
     newProducts.Add(new PhysicalProductModel { Title = "Bic Pen Stylo" });
     newProducts.Add(new PhysicalProductModel { Title = "Harrison Tshirt" });
     newProducts.Add(new PhysicalProductModel { Title = "CK Belt" });
+
+    //Add Digital Products
+    newProducts.Add(new DigitalProductModel { Title = "Rich Dad Poor Dad" });
+
+    // Add Course Products
+    newProducts.Add(new CourseProductModel { Title = "Javascript Essentials Complete Course" });
+
 
     return newProducts;
 }

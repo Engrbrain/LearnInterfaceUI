@@ -1,7 +1,7 @@
 ﻿using System;
 namespace DemoLibrary
 {
-	public class PhysicalProductModel
+	public class PhysicalProductModel: IProductModel
 	{
 		public string Title { get; set; } = default!;
 		public bool HasOrderBeenCompleted { get; private set; }
@@ -14,7 +14,6 @@ namespace DemoLibrary
 				HasOrderBeenCompleted = true;
 			}
 		}
-
 
 	}
 }
